@@ -8,9 +8,8 @@ class FetchInfo():
     
     post_url = 'http://www.tripadvisor.com/SortReviews'
     segment_list = ["filterSegment=3","filterSegment=2","filterSegment=5","filterSegment=1"]
-    def __init__(self,url,hotel_name):
+    def __init__(self,url):
         self.url = url
-        self.hotel_name = hotel_name
         r = requests.get(self.url)
         self.soup = BeautifulSoup(r.content)
         self.returnTo = str(self.soup.find('input',{'name': 'returnTo'})['value'])
@@ -78,7 +77,6 @@ class FetchInfo():
     def fetch_review_properties(self, rev, total, index):
         '''build two demension table'''
         
-        
         if index == 0:
             rev.table[index].append(total)
             for data in self.soup.findAll('div',{'class' : 'wrap row'}):
@@ -91,27 +89,7 @@ class FetchInfo():
 
 
        
-url_path = "http://www.tripadvisor.com/Hotel_Review-g60763-d113317-Reviews-Casablanca_Hotel_Times_Square-New_York_City_New_York.html"
-hotel_name = "Casablanca Hotel Times Square"
 
-##Initialize
-fetch = FetchInfo(url_path,hotel_name)
-##fetch thumb_up rank and total_reviews
-thumb_up = fetch.fetch_thumb_up() #thumb up
-rank =  fetch.fetch_rank()  #rank
-total_reviews = fetch.fetch_total_reviews()   #total_reviews
-
-##construct Review object       
-txt_title = """%s, %s, %s, %s """ %(hotel_name, thumb_up.string, rank.string, str(total_reviews) + " Reviews") # txt_title
-rev  = Review(txt_title) #Review Object
-
-##fill all review properties in the reviewers
-i = 0
-while i <= 4:
-    
-    fetch.fetch_review_properties(rev,total = total_reviews, index = i)
-    i = i + 1       
-rev.write_into_file(hotel_name)
 
 
 

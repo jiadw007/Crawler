@@ -10,7 +10,7 @@ class Review:
     
     @classmethod
     
-    def __init__(self,title):
+    def __init__(self,title,hotel_name):
         
         self.txt_title = title #first line in the txt file
         self.reviewers = [] # total reviewer
@@ -24,12 +24,11 @@ class Review:
         self.table.append(self.couples)
         self.table.append(self.solo)
         self.table.append(self.business)
+        self.hotel_name = hotel_name.replace(Review.replace_sign[0][0],Review.replace_sign[0][1])#standardlize file name
 
-    def write_into_file(self, hotel_name):
-        
-        hotel_name = hotel_name.replace(Review.replace_sign[0][0],Review.replace_sign[0][1])        #standardlize file name
+    def write_into_file(self):        
         pad = '|'
-        file_path = os.path.join(Review.directory,hotel_name + ".txt")
+        file_path = os.path.join(Review.directory,self.hotel_name + ".txt")
         file_handle = open(file_path,'w')
         file_handle.write(self.txt_title + '\n')
         table_head = []
@@ -50,5 +49,5 @@ class Review:
             table_line = pad.join(table_line)    
             file_handle.write(table_line + "\n")
         file_handle.close()
-        print "finish " + hotel_name + " !"
+        print "finish " + self.hotel_name + " !"
         

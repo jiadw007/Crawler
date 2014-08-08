@@ -1,0 +1,10 @@
+#!wing
+#!version=4.0
+##################################################################
+# Wing IDE project file                                          #
+##################################################################
+[project attributes]
+proj.file-list = [loc('crawler.py'),
+                  loc('fetchInfo.py'),
+                  loc('review.py')]
+proj.file-type = 'shared'

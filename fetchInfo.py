@@ -37,6 +37,19 @@ class FetchInfo():
             
         return rank
     
+    def fetch_address(self):
+        '''fetch address'''
+        ##print self.soup
+        address =""
+        tags = self.soup.find('span',{'rel':'v:address'})
+        for tag in tags.findAll('span'):
+            if tag.string is not None:
+                loc = tag.string.replace(',',' ')
+                address = address + " " + loc
+        return address
+    
+        
+    
     def fetch_total_reviews(self):
         '''fetch total_reviews'''
         total_reviews = self.soup.find('span', {'property':'v:count'}).string
@@ -48,21 +61,21 @@ class FetchInfo():
     
     
     def fetch_sub_reviews(self, rev, i):
-        
+        '''fetch sub reviews for different group'''
         values = "segment segment" + str(i)
         #print values
         tag = self.soup.find('div',{'class' : values})
-        count = tag.find('div', {'class' : 'value'}).string
-        #sub total review
-        rev.table[i].append(str(count))
+        count = tag.find('div', {'class' : 'value'}).string.replace(',','')
+        ##sub total review
+        rev.table[i].append(count)
         params = "?" + FetchInfo.segment_list[i-1] + "&returnTo=" + self.returnTo + "&filterRating=0"
         post_url = FetchInfo.post_url + params
         #print post_url
         request = requests.get(post_url)
         html = BeautifulSoup(request.content)
         for data in html.findAll('div',{'class' : 'wrap row'}):
-            nums = data.find('span',{'class': 'compositeCount'}).string
-            rev.table[i].append(str(nums))
+            nums = data.find('span',{'class': 'compositeCount'}).string.replace(',','')
+            rev.table[i].append(nums)
             
     
     
@@ -75,13 +88,14 @@ class FetchInfo():
         
     
     def fetch_review_properties(self, rev, total, index):
-        '''build two demension table'''
+        '''build two demensions table'''
         
         if index == 0:
-            rev.table[index].append(total)
+            
+            rev.table[index].append(total.replace(',',''))
             for data in self.soup.findAll('div',{'class' : 'wrap row'}):
                 count = data.find('span',{'class': 'compositeCount'}).string
-                rev.table[index].append(count)
+                rev.table[index].append(count.replace(',',''))
         else:
             ##fetch information after click on families,Couples,Solo, Business
             self.fetch_sub_reviews(rev,index)

@@ -37,10 +37,11 @@ class Review:
         data = self.hotel_name + "," + self.address + "," + self.thumb_up + "," + self.rank + ","
         for row in Review.rows:
             index = Review.rows.index(row)
-            list = self.table[index]
+            
+            list_index = self.table[index]
             for col in Review.cols:
                 i = Review.cols.index(col)
-                data = data + list[i] + ","
+                data = data + list_index[i] + ","
         file_handle.write(data + "\n")
                 
         ##write the first line into file

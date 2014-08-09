@@ -1,12 +1,13 @@
 import os
+import sys
 from fetchInfo import FetchInfo
 from review import Review
 import requests
 
 from bs4 import BeautifulSoup
 
-count = 150
-page = 5
+count = 420
+page = 14
 total_hotels = 451
 base_url = "http://www.tripadvisor.com/"
 #html_url = "Hotels-g60763-New_York_City_New_York-Hotels.html"
@@ -45,7 +46,6 @@ try:
             fetch = FetchInfo(url_path)
             ##fetch thumb_up rank and total_reviews
             thumb_up = fetch.fetch_thumb_up() #thumb up
-            print thumb_up
             rank =  fetch.fetch_rank()  #rank
             total_reviews = fetch.fetch_total_reviews()   #total_reviews
             address = fetch.fetch_address()
@@ -66,8 +66,9 @@ try:
         page = page + 1
     
 except Exception, e:
+    print sys.exc_traceback.tb_lineno 
     print e
-    print "finish all possible hotel"
+    
 
 
 

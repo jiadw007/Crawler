@@ -5,13 +5,13 @@ import requests
 
 from bs4 import BeautifulSoup
 
-count = 0
-page = 0
-total_hotels = 1
-pad = "0a"
+count = 150
+page = 5
+total_hotels = 451
 base_url = "http://www.tripadvisor.com/"
 #html_url = "Hotels-g60763-New_York_City_New_York-Hotels.html"
 ##write the csv head
+'''
 file_handle = open('D:\\Reviews\\new york.csv','w')
 csv_line = "Name,Address,Thumb_up,Rank,"
 for row in Review.rows:
@@ -20,7 +20,7 @@ for row in Review.rows:
         csv_line = csv_line + section
 file_handle.write(csv_line + "\n")
 file_handle.close()
-
+'''
 try:
     while count < total_hotels:
         
@@ -45,13 +45,14 @@ try:
             fetch = FetchInfo(url_path)
             ##fetch thumb_up rank and total_reviews
             thumb_up = fetch.fetch_thumb_up() #thumb up
+            print thumb_up
             rank =  fetch.fetch_rank()  #rank
             total_reviews = fetch.fetch_total_reviews()   #total_reviews
             address = fetch.fetch_address()
     
             ##construct Review object       
             ##txt_title = """%s, %s, %s, %s """ %(hotel_name, thumb_up.string, rank.string, str(total_reviews) + " Reviews") # txt_title  
-            rev  = Review(hotel_name,address,thumb_up.string,rank.string[8:]) #Review Object
+            rev  = Review(hotel_name,address,thumb_up,rank[8:]) #Review Object
 
             ##fill all review properties in the reviewers
             i = 0

@@ -23,19 +23,20 @@ class FetchInfo():
     def fetch_thumb_up(self):
         '''fetch thumb up'''
         thumb_up = self.soup.find('span',{'class':'percent'})
-        while thumb_up is None:
-            self.fetch_html()
-            thumb_up = self.fetch_thumb_up()
-        return thumb_up
+        if thumb_up is None:
+            return "of travelers recommend"
+        else:
+            return thumb_up.string
     
     def fetch_rank(self):
         '''fetch rank'''
         rank = self.soup.find('b', {'class': 'rank_text'})
         while rank is None:
             self.fetch_html()
-            rank = FetchInfo.fetch_rank()
+            print "error"
+            rank = self.fetch_rank()
             
-        return rank
+        return rank.string
     
     def fetch_address(self):
         '''fetch address'''

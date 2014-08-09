@@ -8,23 +8,22 @@ Simple Crawler for http://www.tripadvisor.com/
 
 Fetch Reviews information for hotels in cities
 
-startup: crawler.py
-         fetchInfo.py (temp version for one certain hotel)
+structure: 
+         crawler.py   startup
+                  http://www.tripadvisor.com/Hotels?seen=0&sequence=1&geo=60763&requestingServlet=Hotels&refineForm=true&o=%s&rad=0&da                   teBumped=NONE
+                  This url to get hotel list
+                  geo city code
+                  o page number
+         fetchInfo.py
+                  fetch all necessary info
+         review.py
+                  store the results and write to csv
 
-Result forms:
-
-*************, 96%, Ranked #1, 3,396 Reviews 
-  Attributes   |  All Reviewer |    Families   |    Couples    |      Solo     |    Business   
-     Total     |     3,396     |      626      |      1799     |      119      |      186      
-   Excellent   |     2,812     |       5       |       5       |       5       |       5       
-   Very good   |      455      |      4.5      |      4.5      |      4.5      |      4.5      
-    Average    |       76      |      4.5      |      4.5      |      4.5      |      4.5      
-      Poor     |       32      |       5       |       5       |       5       |       5       
-    Terrible   |       21      |      4.5      |      4.5      |      4.5      |      4.5      
-    Location   |       5       |       5       |       5       |       5       |       5       
- Sleep quality |      4.5      |       0       |       0       |       0       |       0       
-     Rooms     |      4.5      |       0       |       0       |       0       |       0       
-    Service    |       5       |       0       |       0       |       0       |       0       
-     Value     |      4.5      |       0       |       0       |       0       |       0       
-    Cleaness   |       5       |       0       |       0       |       0       |       0    
+Result:
+         city.csv
+         
+         
+Next step:
+         Improve efficiency by multithreading (my idea)
+         Good practice for multithreading
     

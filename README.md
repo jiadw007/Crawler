@@ -28,7 +28,7 @@ Result:
          
 Next step:
 
-    Improve efficiency by multithreading (my idea).
+    Improve efficiency by multiprocessing (my idea).
          
-    Good practice for multithreading.
+    Good practice for multiprocessing.
     
